@@ -2,59 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateOrUpdatePostRequest;
 use App\Models\Post;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        $posts = Post::all();
-        return response()->json(['posts' => $posts]);
+        return response()->json([
+            'posts' => Post::paginate()
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateOrUpdatePostRequest $request): JsonResponse
     {
-        $request->validate([
-            'title' => 'required|max:255',
-            'body' => 'required',
-        ]);
-
         $post = Post::create(
-            $request->all()
+            $request->validated()
         );
 
-        return response()->json(['post' => $post]);
+        return response()->json(['post' => $post], Response::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Post $post): JsonResponse
     {
-        $post = Post::find($id);
-
         return response()->json(['post' => $post]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(CreateOrUpdatePostRequest $request, Post $post): JsonResponse
     {
-        $request->validate([
-            'title' => 'required|max:255',
-            'body' => 'required',
-        ]);
-
-        $post = Post::find($id);
-        $post->update($request->all());
+        $post->update(
+            $request->validated()
+        );
 
         return response()->json(['post' => $post]);
     }
@@ -62,11 +54,10 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Post $post): Response
     {
-        $post = Post::find($id);
         $post->delete();
 
-        return response()->json(['post' => null]);
+        return response()->noContent();
     }
 }
