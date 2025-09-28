@@ -9,6 +9,7 @@ return new class extends Migration {
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('author_id')->constrained()->references('id')->on('users');
             $table->string('title');
             $table->text('body');
             $table->timestamps();
