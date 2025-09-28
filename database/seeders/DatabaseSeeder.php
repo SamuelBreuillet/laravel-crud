@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        Post::factory(10)->create();
+        // for pagination testing purpose
+        Post::factory(100)->create();
     }
 }
