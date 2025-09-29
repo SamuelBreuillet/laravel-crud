@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/tokens', LoginController::class);
 
 Route::get('/posts', [PostController::class, 'index']);
-Route::get('/posts/{id}', [PostController::class, 'show']);
+Route::get('/posts/{post}', [PostController::class, 'show']);
 
 Route::group(['prefix' => '/', 'middleware' => ['auth:sanctum']], function () {
     Route::apiResource('posts', PostController::class)->except('index', 'show');
