@@ -30,5 +30,18 @@ class DatabaseSeeder extends Seeder
             'email' => 'afup-nantes@laravel.io',
             'is_admin' => true,
         ]);
+
+
+
+        User::factory()
+            ->has(
+                Post::factory()
+                    ->state(function (array $attributes, User $user) {
+                        return ['id' => 999];
+                    })
+            )
+            ->create([
+                'email' => 'test@laravel.io'
+            ]);
     }
 }
