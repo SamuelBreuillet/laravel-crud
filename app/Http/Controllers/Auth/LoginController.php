@@ -17,7 +17,7 @@ class LoginController extends Controller
         $validated = $request->validated();
 
         $user = User::query()
-            ->select('email', 'password')
+            ->select('id', 'email', 'password')
             ->where('email', $validated['email'])
             ->first();
 
