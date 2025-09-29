@@ -18,6 +18,13 @@ class DatabaseSeeder extends Seeder
             ->has(Post::factory()->count(20))
             ->create();
 
+        User::factory()
+            ->has(Post::factory()->count(2))
+            ->inactive()
+            ->create([
+                'email' => 'inactive@example.com',
+            ]);
+
         User::factory()->create([
             'name' => 'AFUP Nantes',
             'email' => 'afup-nantes@laravel.io',
