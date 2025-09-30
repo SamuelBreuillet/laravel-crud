@@ -14,14 +14,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        User::factory(5)
+            ->has(Post::factory()->count(20))
+            ->create();
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'AFUP Nantes',
+            'email' => 'afup-nantes@laravel.io',
+            'is_admin' => true,
         ]);
-
-        // for pagination testing purpose
-        Post::factory(100)->create();
     }
 }

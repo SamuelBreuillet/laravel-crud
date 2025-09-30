@@ -24,9 +24,12 @@ class PostController extends Controller
      */
     public function store(CreateOrUpdatePostRequest $request): JsonResponse
     {
-        $post = Post::create(
-            $request->validated()
-        );
+        $post = new Post();
+
+        $post->fill($request->validated());
+        $post->author_id = $request->user()->id;
+
+        $post->save();
 
         return response()->json(['post' => $post], Response::HTTP_CREATED);
     }
