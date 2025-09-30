@@ -10,9 +10,9 @@ class BasePolicy
 {
     use HandlesAuthorization;
 
-    public function before(User $user, string $ability): bool|null
+    public function before(?User $user, string $ability): bool|null
     {
-        if ($user->is_admin) {
+        if ($user?->is_admin) {
             return true;
         }
 

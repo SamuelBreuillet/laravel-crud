@@ -18,7 +18,7 @@ class PostPolicy extends BasePolicy
         return true;
     }
 
-    public function create(User $user): bool
+    public function store(User $user): bool
     {
         return true;
     }
