@@ -10,6 +10,6 @@ Route::post('/tokens', LoginController::class);
 Route::get('/posts', [PostController::class, 'index']);
 Route::get('/posts/{post}', [PostController::class, 'show']);
 
-Route::group(['prefix' => '/', 'middleware' => ['auth:sanctum']], function () {
+Route::group(['prefix' => '/', 'middleware' => ['auth:sanctum', 'is_active']], function () {
     Route::apiResource('posts', PostController::class)->except('index', 'show');
 });
